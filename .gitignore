@@ -1,0 +1,28 @@
+# IDEA
+.idea/
+*.iml
+
+# Composer
+vendor/
+composer.lock
+composer.phar
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing & Code Quality
+.phpunit.result.cache
+.php_cs.cache
+.infection.cache
+infection.log
+
+# Generated Reports
+/reports/
+
+# Cache
+/runtime/
+
+# Other
+.env
+.context
