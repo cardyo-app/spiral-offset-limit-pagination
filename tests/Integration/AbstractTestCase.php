@@ -42,7 +42,7 @@ abstract class AbstractTestCase extends TestCase
                         queryCache: true,
                     ),
                 ],
-            ])
+            ]),
         );
 
         // Create ORM with empty schema initially

@@ -75,7 +75,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         for ($i = 1; $i <= $count; $i++) {
             $customer = new TestCustomer(
                 name: "Customer $i",
-                created_at: new DateTimeImmutable("2024-01-01 +{$i} hours")
+                created_at: new DateTimeImmutable("2024-01-01 +{$i} hours"),
             );
             $this->em->persist($customer);
         }
@@ -89,8 +89,8 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
             limitValue: new RangeValue(
                 new IntValue(),
                 Boundary::including(1),
-                Boundary::including(100)
-            )
+                Boundary::including(100),
+            ),
         );
     }
 
@@ -106,7 +106,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 0, 'limit' => 10]]
+            ['paginate' => ['offset' => 0, 'limit' => 10]],
         );
 
         $results = iterator_to_array($grid);
@@ -126,7 +126,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 10, 'limit' => 10]]
+            ['paginate' => ['offset' => 10, 'limit' => 10]],
         );
 
         $results = iterator_to_array($grid);
@@ -146,7 +146,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 20, 'limit' => 10]]
+            ['paginate' => ['offset' => 20, 'limit' => 10]],
         );
 
         $results = iterator_to_array($grid);
@@ -168,7 +168,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 0, 'limit' => 10]]
+            ['paginate' => ['offset' => 0, 'limit' => 10]],
         );
 
         $results = iterator_to_array($grid);
@@ -186,7 +186,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 0, 'limit' => 10]]
+            ['paginate' => ['offset' => 0, 'limit' => 10]],
         );
 
         $results = iterator_to_array($grid);
@@ -205,7 +205,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 100, 'limit' => 10]]
+            ['paginate' => ['offset' => 100, 'limit' => 10]],
         );
 
         $results = iterator_to_array($grid);
@@ -230,7 +230,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
             [
                 'filter' => ['search' => 'Customer 1'],
                 'paginate' => ['offset' => 0, 'limit' => 5],
-            ]
+            ],
         );
 
         $results = iterator_to_array($grid);
@@ -256,7 +256,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
             [
                 'sort' => ['name' => 'asc'],
                 'paginate' => ['offset' => 0, 'limit' => 5],
-            ]
+            ],
         );
 
         $results = iterator_to_array($grid);
@@ -281,7 +281,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
             [
                 'sort' => ['name' => 'desc'],
                 'paginate' => ['offset' => 0, 'limit' => 5],
-            ]
+            ],
         );
 
         $results = iterator_to_array($grid);
@@ -303,7 +303,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            ['paginate' => ['offset' => 20, 'limit' => 10]]
+            ['paginate' => ['offset' => 20, 'limit' => 10]],
         );
 
         // Trigger iteration to populate options
@@ -331,7 +331,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
             [
                 'paginate' => ['offset' => 0, 'limit' => 10],
                 'fetchCount' => 1,
-            ]
+            ],
         );
 
         // Trigger iteration to populate options
@@ -358,7 +358,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
                 'filter' => ['search' => 'Customer 1'],
                 'paginate' => ['offset' => 0, 'limit' => 5],
                 'fetchCount' => 1,
-            ]
+            ],
         );
 
         // Trigger iteration
@@ -381,7 +381,7 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
         $grid = $this->createGrid(
             $this->orm->getRepository(TestCustomer::class)->select(),
             $schema,
-            [] // No pagination parameters
+            [], // No pagination parameters
         );
 
         $results = iterator_to_array($grid);

@@ -22,8 +22,8 @@ class OffsetLimitPaginatorTest extends TestCase
             limitValue: new RangeValue(
                 new IntValue(),
                 Boundary::including(1),
-                Boundary::including(100)
-            )
+                Boundary::including(100),
+            ),
         );
     }
 
@@ -47,8 +47,8 @@ class OffsetLimitPaginatorTest extends TestCase
             limitValue: new RangeValue(
                 new IntValue(),
                 Boundary::including(1),
-                Boundary::including(100)
-            )
+                Boundary::including(100),
+            ),
         );
     }
 
@@ -62,8 +62,8 @@ class OffsetLimitPaginatorTest extends TestCase
             limitValue: new RangeValue(
                 new IntValue(),
                 Boundary::including(1),
-                Boundary::including(100)
-            )
+                Boundary::including(100),
+            ),
         );
     }
 

@@ -9,6 +9,4 @@ use InvalidArgumentException;
 /**
  * Exception thrown when pagination parameters are invalid.
  */
-class InvalidPaginationException extends InvalidArgumentException
-{
-}
+class InvalidPaginationException extends InvalidArgumentException {}
