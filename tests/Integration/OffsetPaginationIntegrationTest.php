@@ -25,9 +25,7 @@ class TestCustomer
 
 
 
-    public function __construct(public string $name, public DateTimeImmutable $created_at)
-    {
-    }
+    public function __construct(public string $name, public DateTimeImmutable $created_at) {}
 }
 
 final class OffsetPaginationIntegrationTest extends AbstractTestCase
