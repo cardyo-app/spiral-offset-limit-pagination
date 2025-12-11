@@ -37,6 +37,22 @@ final class OffsetLimitPaginatorTest extends TestCase
         $this->assertSame(20, $paginator->getLimit());
     }
 
+    public function testConstructorWithMinimumValidDefaultLimit(): void
+    {
+        // defaultLimit = 1 should be valid (boundary case)
+        $paginator = new OffsetLimitPaginator(
+            defaultLimit: 1,
+            limitValue: new RangeValue(
+                new IntValue(),
+                Boundary::including(1),
+                Boundary::including(100),
+            ),
+        );
+
+        $this->assertSame(0, $paginator->getOffset());
+        $this->assertSame(1, $paginator->getLimit());
+    }
+
     public function testConstructorThrowsExceptionForNegativeDefaultLimit(): void
     {
         $this->expectException(InvalidPaginationException::class);
@@ -116,6 +132,14 @@ final class OffsetLimitPaginatorTest extends TestCase
 
         $this->assertSame(0, $result->getOffset());
         $this->assertSame(20, $result->getLimit());
+
+        // Verify complete state is unchanged
+        $this->assertSame(['offset' => 0, 'limit' => 20], $result->getValue());
+
+        // Verify specifications are correct (only Limit, no Offset since offset=0)
+        $specs = $result->getSpecifications();
+        $this->assertCount(1, $specs);
+        $this->assertInstanceOf(Limit::class, $specs[0]);
     }
 
     public function testWithValueHandlesNonArrayInput(): void
@@ -126,6 +150,28 @@ final class OffsetLimitPaginatorTest extends TestCase
 
         $this->assertSame(0, $result->getOffset());
         $this->assertSame(20, $result->getLimit());
+
+        // Verify complete state is unchanged
+        $this->assertSame(['offset' => 0, 'limit' => 20], $result->getValue());
+
+        // Verify specifications are correct (only Limit, no Offset since offset=0)
+        $specs = $result->getSpecifications();
+        $this->assertCount(1, $specs);
+        $this->assertInstanceOf(Limit::class, $specs[0]);
+    }
+
+    public function testWithValueHandlesNumericStringInput(): void
+    {
+        $paginator = $this->createPaginator(20);
+        $result = $paginator->withValue('123');
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
+
+        // Numeric strings should be treated as non-arrays and ignored
+        $this->assertSame(0, $result->getOffset());
+        $this->assertSame(20, $result->getLimit());
+
+        // Verify complete state is unchanged
+        $this->assertSame(['offset' => 0, 'limit' => 20], $result->getValue());
     }
 
     public function testWithValueHandlesEmptyArray(): void
