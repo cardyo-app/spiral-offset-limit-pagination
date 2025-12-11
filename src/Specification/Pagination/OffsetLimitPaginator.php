@@ -48,6 +48,7 @@ use Spiral\DataGrid\SpecificationInterface;
 final class OffsetLimitPaginator implements FilterInterface, SequenceInterface
 {
     private int $offset = 0;
+
     private int $limit;
 
     /**
@@ -82,7 +83,7 @@ final class OffsetLimitPaginator implements FilterInterface, SequenceInterface
      * @throws InvalidPaginationException
      */
     #[\Override]
-    public function withValue(mixed $value): ?SpecificationInterface
+    public function withValue(mixed $value): \Spiral\DataGrid\SpecificationInterface
     {
         $paginator = clone $this;
 

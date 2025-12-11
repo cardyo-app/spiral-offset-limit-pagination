@@ -22,17 +22,15 @@ use Spiral\DataGrid\Specification\Value\StringValue;
 class TestCustomer
 {
     public ?int $id = null;
-    public string $name;
-    public DateTimeImmutable $created_at;
 
-    public function __construct(string $name, DateTimeImmutable $created_at)
+
+
+    public function __construct(public string $name, public DateTimeImmutable $created_at)
     {
-        $this->name = $name;
-        $this->created_at = $created_at;
     }
 }
 
-class OffsetPaginationIntegrationTest extends AbstractTestCase
+final class OffsetPaginationIntegrationTest extends AbstractTestCase
 {
     protected function setUp(): void
     {
@@ -72,13 +70,14 @@ class OffsetPaginationIntegrationTest extends AbstractTestCase
 
     private function seedCustomers(int $count): void
     {
-        for ($i = 1; $i <= $count; $i++) {
+        for ($i = 1; $i <= $count; ++$i) {
             $customer = new TestCustomer(
-                name: "Customer $i",
-                created_at: new DateTimeImmutable("2024-01-01 +{$i} hours"),
+                name: 'Customer ' . $i,
+                created_at: new DateTimeImmutable(sprintf('2024-01-01 +%d hours', $i)),
             );
             $this->em->persist($customer);
         }
+
         $this->em->run();
     }
 

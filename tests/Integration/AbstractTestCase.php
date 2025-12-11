@@ -22,8 +22,11 @@ use Spiral\DataGrid\Input\ArrayInput;
 abstract class AbstractTestCase extends TestCase
 {
     protected DatabaseManager $dbal;
+
     protected ORM $orm;
+
     protected EntityManager $em;
+
     protected GridFactory $gridFactory;
 
     protected function setUp(): void
@@ -52,6 +55,7 @@ abstract class AbstractTestCase extends TestCase
         // Create GridFactory with QueryWriter
         $compiler = new Compiler();
         $compiler->addWriter(new QueryWriter());
+
         $this->gridFactory = new GridFactory($compiler);
     }
 

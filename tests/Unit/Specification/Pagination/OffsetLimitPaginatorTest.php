@@ -13,7 +13,7 @@ use Spiral\DataGrid\Specification\Value\IntValue;
 use Spiral\DataGrid\Specification\Value\RangeValue;
 use Spiral\DataGrid\Specification\Value\RangeValue\Boundary;
 
-class OffsetLimitPaginatorTest extends TestCase
+final class OffsetLimitPaginatorTest extends TestCase
 {
     private function createPaginator(int $defaultLimit = 20): OffsetLimitPaginator
     {
@@ -73,6 +73,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator();
         $result = $paginator->withValue(['offset' => 40, 'limit' => 10]);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
 
         $this->assertSame(40, $result->getOffset());
         $this->assertSame(10, $result->getLimit());
@@ -91,6 +92,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator();
         $result = $paginator->withValue(['limit' => 50]);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
 
         $this->assertSame(0, $result->getOffset()); // Stays at 0
         $this->assertSame(50, $result->getLimit());
@@ -100,6 +102,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator();
         $result = $paginator->withValue(['offset' => '20', 'limit' => '10']);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
 
         $this->assertSame(20, $result->getOffset());
         $this->assertSame(10, $result->getLimit());
@@ -109,6 +112,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator(20);
         $result = $paginator->withValue(null);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
 
         $this->assertSame(0, $result->getOffset());
         $this->assertSame(20, $result->getLimit());
@@ -118,6 +122,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator(20);
         $result = $paginator->withValue('invalid');
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
 
         $this->assertSame(0, $result->getOffset());
         $this->assertSame(20, $result->getLimit());
@@ -127,6 +132,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator(20);
         $result = $paginator->withValue([]);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
 
         $this->assertSame(0, $result->getOffset());
         $this->assertSame(20, $result->getLimit());
@@ -184,6 +190,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator();
         $result = $paginator->withValue(['offset' => 20, 'limit' => 10]);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
         $specifications = $result->getSpecifications();
 
         $this->assertCount(2, $specifications);
@@ -197,6 +204,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator();
         $result = $paginator->withValue(['offset' => 0, 'limit' => 10]);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
         $specifications = $result->getSpecifications();
 
         // Offset of 0 should not generate an Offset specification
@@ -222,6 +230,7 @@ class OffsetLimitPaginatorTest extends TestCase
     {
         $paginator = $this->createPaginator();
         $result = $paginator->withValue(['offset' => 40, 'limit' => 50]);
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $result);
         $value = $result->getValue();
 
         $this->assertSame(40, $value['offset']);
@@ -237,6 +246,7 @@ class OffsetLimitPaginatorTest extends TestCase
 
         $this->assertNotSame($original, $modified);
         $this->assertSame(0, $original->getOffset());
+        $this->assertInstanceOf(\Spiral\DataGrid\SpecificationInterface::class, $modified);
         $this->assertSame(10, $modified->getOffset());
     }
 }
